@@ -22,5 +22,7 @@ public class App extends JavaPlugin {
         } else {
             bedrockPrefix = "";
         }
+
+        RespondCommandFactory.registerCommands(getConfig().getConfigurationSection("commands"));
     };
 }
