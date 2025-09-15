@@ -1,0 +1,15 @@
+main: net.spoxy.SimpleServerMessage
+name: SimpleServerMessage
+version: 0.1
+
+commands:
+  ssmReload:
+    description: Reload the SimpleServerMessage config
+    usage: /ssm reload
+    permission: SimpleServerMessage.ssmReload
+    permission-message: You do not have permission to use this command.
+
+permissions:
+  SimpleServerMessage.ssmReload:
+    description: Allows reloading the SimpleServerMessage config
+    default: op

@@ -16,8 +16,9 @@ public record RespondCommandConfig(String main, List<String> aliases, String res
                 (section.getStringList("command") == null || section.getStringList("command").isEmpty())
                         ? new java.util.ArrayList<>()
                         : section.getStringList("command").subList(1, section.getStringList("command").size()),
-                section.getString("response", "No response set"),
-                section.getString("bedrockResponse", section.getString("response", "No response set")),
+                SimpleServerMessage.translateColors(section.getString("response", "No response set")),
+                SimpleServerMessage.translateColors(
+                        section.getString("bedrockResponse", section.getString("response", "No response set"))),
                 section.getString("click", null),
                 section.getString("hover", null));
     }
