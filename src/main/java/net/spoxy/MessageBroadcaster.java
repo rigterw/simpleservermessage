@@ -20,6 +20,7 @@ public class MessageBroadcaster {
     private JavaPlugin plugin;
 
     public MessageBroadcaster(JavaPlugin plugin) {
+        this.plugin = plugin;
     }
 
     public void setConfig(ConfigurationSection config) {

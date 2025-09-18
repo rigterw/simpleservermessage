@@ -15,12 +15,13 @@ public class SimpleServerMessage extends JavaPlugin {
 
     static String bedrockPrefix;
 
-    private MessageBroadcaster messager;
+    private final MessageBroadcaster messager = new MessageBroadcaster(this);
+    private final RespondCommandFactory respondCommandFactory = new RespondCommandFactory();
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        messager = new MessageBroadcaster(this);
+
         Init();
     };
 
@@ -47,8 +48,8 @@ public class SimpleServerMessage extends JavaPlugin {
 
         FileConfiguration config = getConfig();
 
-        RespondCommandFactory.registerCommands(config.getConfigurationSection("commands"));
         messager.setConfig(config.getConfigurationSection("messager"));
+        respondCommandFactory.registerCommands(config.getConfigurationSection("commands"));
 
     }
 

@@ -19,9 +19,9 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 public class RespondCommandFactory {
 
-    private static List<PluginCommand> commands = new ArrayList<>();
+    private List<Command> commands = new ArrayList<>();
 
-    public static void registerCommands(ConfigurationSection commandsSection) {
+    public void registerCommands(ConfigurationSection commandsSection) {
         CommandMap commandMap;
 
         try {
@@ -44,16 +44,16 @@ public class RespondCommandFactory {
         }
     }
 
-    private static void unloadCommands(CommandMap commandMap) {
+    private void unloadCommands(CommandMap commandMap) {
 
-        for (PluginCommand cmd : commands) {
-            cmd.setExecutor(null);
+        for (Command cmd : commands) {
+            cmd.unregister(commandMap);
         }
         commands.clear();
 
     }
 
-    private static void registerCommand(RespondCommandConfig commandConfig, CommandMap commandMap) {
+    private void registerCommand(RespondCommandConfig commandConfig, CommandMap commandMap) {
         Command command = new BukkitCommand(commandConfig.main()) {
             @Override
             public boolean execute(CommandSender sender, String label, String[] args) {
@@ -90,5 +90,6 @@ public class RespondCommandFactory {
         }
 
         commandMap.register(commandConfig.main(), command);
+        commands.add(command);
     }
 }
