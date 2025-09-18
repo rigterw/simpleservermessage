@@ -2,6 +2,9 @@ main: net.spoxy.SimpleServerMessage
 name: SimpleServerMessage
 version: 0.1
 
+softdepend:
+  - floodgate
+
 commands:
   ssmReload:
     description: Reload the SimpleServerMessage config

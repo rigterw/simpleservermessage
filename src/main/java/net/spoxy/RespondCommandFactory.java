@@ -3,7 +3,6 @@ package net.spoxy;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -13,7 +12,6 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -65,7 +63,7 @@ public class RespondCommandFactory {
                 Player player = (Player) sender;
 
                 // Check if the player is a Bedrock player by checking the prefix
-                String message = player.getName().substring(0, 1).equals(SimpleServerMessage.bedrockPrefix)
+                String message = SimpleServerMessage.isBedrockPlayer(player)
                         ? commandConfig.bedrockResponse()
                         : commandConfig.response();
 
@@ -92,6 +90,5 @@ public class RespondCommandFactory {
         }
 
         commandMap.register(commandConfig.main(), command);
-        // commands.add((PluginCommand) command);
     }
 }

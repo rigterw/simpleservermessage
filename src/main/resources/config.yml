@@ -22,3 +22,19 @@ commands:
     response: "Check out the map here: https://map.example.com"
     bedrock_response: "Check out the map here: https://map.example.com"
     click: "https://map.example.com"
+
+messager:
+  # send a message every X minutes
+  interval: 300
+  # if true, a random message will be chosen from the list. If false, messages will be sent in order.
+  random: true
+
+  messages:
+    - "&9Join our discord for the rules and to stay updated, &7/discord"
+    - "&6View the worldmap via &8/map"
+    - "&6Don't forget to &c/vote &6for cool rewards, every vote helps the community grow!"
+  # Optional: Different messages for Bedrock players (if different from the normal messages). This only works in combination with the geyser floodgate plugin.
+  # With the geyser plugin, bedrock players will only get messages from this list, unless it's empty or missing.
+  bedrock_messages:
+    - "&9Join our discord for the rules and to stay updated: &7https://discord.gg/23m7a5eVZy"
+    - "&6View the worldmap at: &8https://map.spoxy.net"
