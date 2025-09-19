@@ -7,7 +7,7 @@ commands:
       - dc
     
     # For colored text the & symbol is used. The symbol is escapeable with a slash (/&).
-    response: "&1Join our Discord server: https://discord.gg/example"
+    response: "&1&9To join our discord &l&c&nclick here"
     # Optional: The message sent to Bedrock players (if different from the normal response). This only works in combination with the geyser floodgate plugin.
     # This is a function because Bedrock players can't click on links, so you might want to give them different instructions.
     bedrock_response: "&1Join our Discord server: https://discord.gg/example"

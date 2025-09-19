@@ -1,5 +1,6 @@
 package net.spoxy;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -7,22 +8,23 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.geysermc.floodgate.api.FloodgateApi;
 
-/**
- * Hello world!
- *
- */
-public class SimpleServerMessage extends JavaPlugin {
+import net.spoxy.CommandResponding.RespondCommandFactory;
 
-    static String bedrockPrefix;
+public class SimpleServerMessage extends JavaPlugin {
 
     private final MessageBroadcaster messager = new MessageBroadcaster(this);
     private final RespondCommandFactory respondCommandFactory = new RespondCommandFactory();
+    private static FloodgateApi floodgate;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
 
-        Init();
+        // Floodgate integration
+        if (Bukkit.getPluginManager().getPlugin("Floodgate") != null) {
+            floodgate = FloodgateApi.getInstance();
+        }
+        _init();
     };
 
     @Override
@@ -33,8 +35,7 @@ public class SimpleServerMessage extends JavaPlugin {
                 return true;
             }
 
-            reloadConfig();
-            Init();
+            _reload();
             sender.sendMessage("§aSimpleServerMessage config reloaded!");
             return true;
         }
@@ -42,9 +43,17 @@ public class SimpleServerMessage extends JavaPlugin {
     }
 
     /**
+     * Reload the config and re-initialize the plugin
+     */
+    private void _reload() {
+        reloadConfig();
+        _init();
+    }
+
+    /**
      * Initialize the plugin, load the config and set up commands and messages
      */
-    private void Init() {
+    private void _init() {
 
         FileConfiguration config = getConfig();
 
@@ -81,7 +90,6 @@ public class SimpleServerMessage extends JavaPlugin {
      *         not. Also returns false if no floodgate plugin is found
      */
     public static boolean isBedrockPlayer(Player player) {
-        FloodgateApi floodgate = FloodgateApi.getInstance();
         if (floodgate == null) {
             return false;
 

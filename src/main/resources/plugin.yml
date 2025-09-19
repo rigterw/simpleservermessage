@@ -1,6 +1,6 @@
 main: net.spoxy.SimpleServerMessage
 name: SimpleServerMessage
-version: 0.1
+version: 0.0.2
 
 softdepend:
   - floodgate
