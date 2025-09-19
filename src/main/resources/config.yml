@@ -23,7 +23,7 @@ commands:
     bedrock_response: "Check out the map here: https://map.example.com"
     click: "https://map.example.com"
 
-messager:
+messenger:
   # send a message every X minutes
   interval: 300
   # if true, a random message will be chosen from the list. If false, messages will be sent in order.

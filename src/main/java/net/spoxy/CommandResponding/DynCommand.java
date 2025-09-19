@@ -11,8 +11,8 @@ import net.spoxy.SimpleServerMessage;
 
 public class DynCommand extends BukkitCommand {
 
-    private RespondCommandConfig commandConfig;
-    private boolean active = true;
+    private RespondCommandConfig _commandConfig;
+    private boolean _active = true;
 
     public DynCommand(RespondCommandConfig commandConfig) {
         super(commandConfig.main().toLowerCase());
@@ -20,13 +20,13 @@ public class DynCommand extends BukkitCommand {
     }
 
     public void setConfig(RespondCommandConfig commandConfig) {
-        this.active = true;
-        this.commandConfig = commandConfig;
+        this._active = true;
+        this._commandConfig = commandConfig;
         this.setAliases(commandConfig.aliases().stream().map(String::toLowerCase).toList());
     }
 
     public void disable() {
-        this.active = false;
+        this._active = false;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class DynCommand extends BukkitCommand {
             return false;
         }
 
-        if (!active) {
+        if (!_active) {
             sender.sendMessage("§cUnknown command. Type \"/help\" for help.");
             return true;
         }
@@ -43,17 +43,17 @@ public class DynCommand extends BukkitCommand {
 
         // Check if the player is a Bedrock player by checking the prefix
         String message = SimpleServerMessage.isBedrockPlayer(player)
-                ? commandConfig.bedrockResponse()
-                : commandConfig.response();
+                ? _commandConfig.bedrockResponse()
+                : _commandConfig.response();
 
-        if (commandConfig.click() != null || commandConfig.hover() != null) {
+        if (_commandConfig.click() != null || _commandConfig.hover() != null) {
             TextComponent textComponent = new TextComponent(message);
-            if (commandConfig.click() != null) {
-                textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, commandConfig.click()));
+            if (_commandConfig.click() != null) {
+                textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, _commandConfig.click()));
             }
-            if (commandConfig.hover() != null) {
+            if (_commandConfig.hover() != null) {
                 textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                        new net.md_5.bungee.api.chat.hover.content.Text(commandConfig.hover())));
+                        new net.md_5.bungee.api.chat.hover.content.Text(_commandConfig.hover())));
             }
             player.spigot().sendMessage(textComponent);
         } else {

@@ -12,8 +12,8 @@ import net.spoxy.CommandResponding.RespondCommandFactory;
 
 public class SimpleServerMessage extends JavaPlugin {
 
-    private final MessageBroadcaster messager = new MessageBroadcaster(this);
-    private final RespondCommandFactory respondCommandFactory = new RespondCommandFactory();
+    private final MessageBroadcaster _messenger = new MessageBroadcaster(this);
+    private final RespondCommandFactory _respondCommandFactory = new RespondCommandFactory();
     private static FloodgateApi floodgate;
 
     @Override
@@ -57,8 +57,8 @@ public class SimpleServerMessage extends JavaPlugin {
 
         FileConfiguration config = getConfig();
 
-        messager.setConfig(config.getConfigurationSection("messager"));
-        respondCommandFactory.registerCommands(config.getConfigurationSection("commands"));
+        _messenger.setConfig(config.getConfigurationSection("messager"));
+        _respondCommandFactory.registerCommands(config.getConfigurationSection("commands"));
 
     }
 
@@ -90,11 +90,6 @@ public class SimpleServerMessage extends JavaPlugin {
      *         not. Also returns false if no floodgate plugin is found
      */
     public static boolean isBedrockPlayer(Player player) {
-        if (floodgate == null) {
-            return false;
-
-        }
-        return floodgate.isFloodgatePlayer(player.getUniqueId());
-
+        return floodgate == null ? false : floodgate.isFloodgatePlayer(player.getUniqueId());
     }
 }

@@ -12,12 +12,18 @@ import org.bukkit.configuration.ConfigurationSection;
 
 public class RespondCommandFactory {
 
-    private Map<String, DynCommand> commands = new HashMap<String, DynCommand>();
+    private Map<String, DynCommand> _commands = new HashMap<String, DynCommand>();
 
+    /**
+     * Register or update commands based on the given configuration section
+     * 
+     * @param commandsSection The commands section from the config
+     */
     public void registerCommands(ConfigurationSection commandsSection) {
         CommandMap commandMap;
-        List<String> currentCommands = new ArrayList<>(commands.keySet());
+        List<String> currentCommands = new ArrayList<>(_commands.keySet());
 
+        // load command Map
         try {
             Field commandMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
             commandMapField.setAccessible(true);
@@ -35,23 +41,29 @@ public class RespondCommandFactory {
 
             // If the command already exists, update it. Otherwise, register a new command.
             if (currentCommands.contains(key)) {
-                commands.get(key).setConfig(commandConfig);
+                _commands.get(key).setConfig(commandConfig);
                 currentCommands.remove(key);
             } else {
-                registerCommand(commandConfig, commandMap);
+                _registerCommand(commandConfig, commandMap);
             }
         }
 
         // disable all commands that got removed.
         for (String key : currentCommands) {
-            commands.get(key).disable();
+            _commands.get(key).disable();
         }
     }
 
-    private void registerCommand(RespondCommandConfig commandConfig, CommandMap commandMap) {
+    /**
+     * Register a new command in the command map
+     * 
+     * @param commandConfig The command configuration
+     * @param commandMap    The command map to register the command in
+     */
+    private void _registerCommand(RespondCommandConfig commandConfig, CommandMap commandMap) {
         DynCommand command = new DynCommand(commandConfig);
         commandMap.register("ssm", command);
-        commands.put(command.getName(), command);
+        _commands.put(command.getName(), command);
     }
 
 }
