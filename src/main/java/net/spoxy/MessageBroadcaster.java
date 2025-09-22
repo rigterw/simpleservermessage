@@ -45,19 +45,19 @@ public class MessageBroadcaster {
 
     private void _sendMessage() {
 
+        Player[] players = Bukkit.getOnlinePlayers().toArray(new Player[0]);
+        if (players.length == 0) {
+            return;
+        }
+
         _setIndexes();
 
         String javaMessage = javaMessages[javaIndex];
         String bedrockMessage = bedrockMessages[bedrockIndex];
 
         // Broadcast the messages
-        if (javaMessage.equals(bedrockMessage)) {
-            // If the messages are the same, just send one message
-            Bukkit.broadcastMessage(javaMessage);
-        } else {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                player.sendMessage(SimpleServerMessage.isBedrockPlayer(player) ? bedrockMessage : javaMessage);
-            }
+        for (Player player : players) {
+            player.sendMessage(SimpleServerMessage.isBedrockPlayer(player) ? bedrockMessage : javaMessage);
         }
     }
 
